@@ -16,6 +16,8 @@ ISCC is a proposal that tries to establish a new paradigm. ISCC is a decentraliz
 
 ![ISCC Component Framework](./img/iscc-components.svg)
 
+
+
 The ISCC is currently discussed at ISO for standardization (ISO/TC 46/SC 9/WG 18). Learn more about ISCC at 
 
 - [ISCC Codes Website](https://iscc.codes)
@@ -24,6 +26,8 @@ The ISCC is currently discussed at ISO for standardization (ISO/TC 46/SC 9/WG 18
 - [Introductory Presentation about ISCC](https://docs.google.com/presentation/d/1N0kZKMCFfB-JFMwnSJxWHOrAelTnH-puqPH_i7y3p1E/)
 
 - [Talk about ISCC @ Blockchain for Science](https://www.youtube.com/watch?v=4OCvPrDhGuQ)
+
+![ISCC Content-ID-Image](./img/iscc-content-id-image.svg)
 
 ## Project Idea: A Decentralized ISCC Registry
 
