@@ -5,8 +5,10 @@ description = ""
 authors = ["titusz <tp@py7.de>"]
 
 [tool.poetry.dependencies]
-python = "^3.6"
+python = "^3.6.1"
 vyper = "^0.2.3"
+web3 = "^5.11.1"
+loguru = "^0.5.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"
