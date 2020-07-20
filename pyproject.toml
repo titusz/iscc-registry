@@ -9,9 +9,11 @@ python = "^3.6.1"
 vyper = "^0.2.3"
 web3 = "^5.11.1"
 loguru = "^0.5.1"
+iscc-cli = "^0.9.11"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"
+black = "^19.10b0"
 
 [build-system]
 requires = ["poetry>=1.0"]
