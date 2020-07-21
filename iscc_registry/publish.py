@@ -8,7 +8,7 @@ from iscc_registry.contract.deploy import get_w3, compile_registry
 
 
 DEMO_FILE = Path(__file__)
-CONTRACT_ADDRESS = "0x68Bf7cB59405512a688Bcc07Cc2bd0F8F3a453F3"
+CONTRACT_ADDRESS = "0xbCb7976C14Ae16923aBEf972EC92044e3302a13E"
 
 
 def get_live_contract(addr=CONTRACT_ADDRESS):
@@ -26,7 +26,7 @@ def publish(file=DEMO_FILE):
     # Random CID for now (testing only)
     cid_raw = os.urandom(32)
     ct = get_live_contract()
-    tx_hash_digest = ct.functions.register(iscc=iscc_raw, cid=cid_raw,).transact()
+    tx_hash_digest = ct.functions.register(iscc=iscc_raw, cid=cid_raw).transact()
     log.debug(f"ISCC registered (txid: {tx_hash_digest.hex()})")
     return tx_hash_digest.hex()
 

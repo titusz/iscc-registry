@@ -5,16 +5,15 @@
 """
 
 event Registration:
-    sender: address
-    iscc: Bytes[32]
-    cid: Bytes[32]
+    iscc: bytes32
+    cid: bytes32
 
 
 @external
-def register(iscc: Bytes[32], cid: Bytes[32]):
+def register(iscc: bytes32, cid: bytes32):
     """
     @notice Registrations are emitted as events and indexed by ISCC meta-registries.
     @param iscc Raw byte-digest of your ISCC
     @param cid  Raw sha256-digest of a CIDv0 that points to IPFS hosted data
     """
-    log Registration(msg.sender, iscc, cid)
+    log Registration(iscc, cid)
