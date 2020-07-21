@@ -10,6 +10,7 @@ vyper = "^0.2.3"
 web3 = "^5.11.1"
 loguru = "^0.5.1"
 iscc-cli = "^0.9.11"
+base58 = "^2.0.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"

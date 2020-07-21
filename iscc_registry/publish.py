@@ -8,7 +8,7 @@ from iscc_registry.contract.deploy import get_w3, compile_registry
 
 
 DEMO_FILE = Path(__file__)
-CONTRACT_ADDRESS = "0xbCb7976C14Ae16923aBEf972EC92044e3302a13E"
+CONTRACT_ADDRESS = "0x2e1F05Bb7684A292d503c2d1Ca2466bFF7731056"
 
 
 def get_live_contract(addr=CONTRACT_ADDRESS):
@@ -20,7 +20,7 @@ def publish(file=DEMO_FILE):
     log.debug(f"Created ISCC: {result}")
     iscc_code = result["iscc"]
     components = utils.iscc_split(iscc_code)
-    iscc_raw = b"".join([iscc.decode(code)[1:] for code in components])
+    iscc_raw = b"".join([iscc.decode(code) for code in components])
     log.debug(f"Raw ISCC ({len(iscc_raw)} bytes): {iscc_raw.hex()}")
 
     # Random CID for now (testing only)
