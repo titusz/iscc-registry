@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["titusz <tp@py7.de>"]
 
+[tool.poetry.scripts]
+ireg = 'iscc_registry.cli:cli'
+
 [tool.poetry.dependencies]
 python = "^3.6.1"
 vyper = "^0.2.3"
@@ -11,6 +14,13 @@ web3 = "^5.11.1"
 loguru = "^0.5.1"
 iscc-cli = "^0.9.11"
 base58 = "^2.0.1"
+click = "^7.1.2"
+ipfshttpclient = "^0.6.0"
+cbor2 = "^5.1.2"
+pydantic = {extras = ["dotenv"], version = "^1.6.1"}
+diskcache = "^4.1.0"
+appdirs = "^1.4.4"
+varint = "^1.0.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.0"

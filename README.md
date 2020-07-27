@@ -63,12 +63,23 @@ Public, Authenticated, Ordered, Immutable. Anybody who follows the cross-chain i
 - A meta-registry indexer that creates a ISCC Short-ID index by listening to contract events and offering resover services.
 - A tool that resolves ISCC Short-IDs to ISCC Codes and metadata/data (maybe as DID method driver https://uniresolver.io/)
 
-## A First Mockup
+## POC Status
 
-This is a rough fist mockup of a user facing application for registration of ISCC codes.
-We are not sure yet if this is what we will build during hackfs as the backend 
-architechture is quite complex to demonstrate the complete flow.
+### 2020-07-27
 
-![ISCC Registry UI-Mockup](./img/iscc-registration-ui-mockup.svg)
+We have build a minimal end-to-end cli tool:
 
+```bash
+$ ireg 
+Usage: ireg [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  -d, --debug  Enable debug mode
+  --help       Show this message and exit.
+
+Commands:
+  deploy    Deploy ISCC Registry contract to chain.
+  register  Register a media asset.
+  resolve   Resolve ISCC-ID via meta-index
+```
 

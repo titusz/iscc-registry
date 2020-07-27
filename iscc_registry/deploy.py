@@ -1,28 +1,12 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
-
 from loguru import logger as log
-from web3 import Web3
 import vyper
+from iscc_registry.conn import w3_client
+
 
 HERE = Path(__file__)
-
 SOURCE_FILE = HERE.parent / "registry.vy"
-WEB3_URL = "http://127.0.0.1:7545"
-_w3 = None
-
-
-def get_w3():
-    """Return cached web3 connection."""
-    global _w3
-    if not _w3:
-        _w3 = Web3(Web3.HTTPProvider(WEB3_URL))
-        _w3.eth.defaultAccount = _w3.eth.accounts[0]
-        if _w3.isConnected():
-            log.debug(f"Connected to {WEB3_URL}")
-        else:
-            log.error("Connection failed")
-    return _w3
 
 
 def compile_registry() -> dict:
@@ -35,12 +19,12 @@ def compile_registry() -> dict:
 
 def get_contract():
     """Build registry contract object."""
-    return get_w3().eth.contract(**compile_registry())
+    return w3_client().eth.contract(**compile_registry())
 
 
-def deploy():
-    w3 = get_w3()
-    w3.eth.defaultAccount = w3.eth.accounts[0]
+def deploy(account=0):
+    w3 = w3_client()
+    w3.eth.defaultAccount = w3.eth.accounts[account]
     contract_obj = get_contract()
     tx_hash = contract_obj.constructor().transact()
     address = w3.eth.getTransactionReceipt(tx_hash)["contractAddress"]
@@ -49,4 +33,6 @@ def deploy():
 
 
 if __name__ == "__main__":
-    deploy()
+    addr = deploy()
+    log.info(f"Registry contract deployed to {addr}")
+    log.info(f"Remember to set CONTRACT_ADDRESS env variable to {addr}")
