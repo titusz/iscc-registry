@@ -58,9 +58,9 @@ Public, Authenticated, Ordered, Immutable. Anybody who follows the cross-chain i
 
 - [x] A basic protocol design for decentralized ISCC registration
 - [x] A protocol implementation based on Ethereum / IPFS
-- [x] An Ethereum contract that logs ISCC registrations including IPFS/Filecoin links
+- [x] An Ethereum contract that logs ISCC registrations including IPFS links
 - [x] tool that registers ISCC codes on Ethereum and publishes metadata to IPFS
-- [x] A meta-registry indexer that creates a ISCC Short-ID index by listening to contract events and offering resover services.
+- [x] A meta-registry indexer that creates a ISCC Short-ID index by listening to contract events and offering resolver services.
 - [x] A tool that resolves ISCC Short-IDs to ISCC Codes and metadata/data (maybe as DID method driver https://uniresolver.io/)
 
 ## POC Status
