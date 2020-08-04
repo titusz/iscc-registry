@@ -65,12 +65,9 @@ Public, Authenticated, Ordered, Immutable. Anybody who follows the cross-chain i
 
 ## POC Status
 
-### 2020-07-27
-
 We have build a minimal end-to-end cli tool:
 
 ```bash
-$ ireg 
 Usage: ireg [OPTIONS] COMMAND [ARGS]...
 
 Options:
@@ -79,8 +76,18 @@ Options:
 
 Commands:
   deploy    Deploy ISCC Registry contract to chain.
+  observe   Watch Registry contract and index ISCC-IDs
   register  Register a media asset.
   resolve   Resolve ISCC-ID via meta-index
 ```
 
-## Build up Client & WebUI for ISCC cross-chain registry
+## Installing and Running the POC
+- Checkout code from github
+- Install dependencies via `poetry install` (see: [Poetry](https://python-poetry.org/))
+- Install and run [Ganache](https://www.trufflesuite.com/ganache)
+- Install and run [IPFS](https://ipfs.io/#install)
+- Deploy meta-index contract with `ireg -d deploy`
+- Run meta-index observer with `ireg -d observe`
+- Register an asset with `ireg -d register README.md`
+- Resolve an ISCC-ID with `ireg resolve 27PH9o5ZNm1VC`
+
