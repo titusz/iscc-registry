@@ -52,7 +52,7 @@ The idea is to design an open cross-blockchain registration protocol. Exercising
 The ISCC Short-ID binds digital content to actor identities. The Short-ID emerges naturally from DLT transactions that are:
 Public, Authenticated, Ordered, Immutable. Anybody who follows the cross-chain indexing protocol can build the state of the full ISCC Short-ID Index (meta-registry). The same ISCC Code may be registered by multiple actors on different chains. They all get different but matchable Short-IDs. A meta-registry resolves ISCC Short-IDs to a transaction (or its information) on a given chain that carries the full ISCC code and links to more metadata or the content itself on IPFS/Filecoin or elsewhere.
 
-![ISCC Short-ID](./img/iscc-short-id.svg)
+![ISCC Short-ID](./img/iscc-meta-reg-protocol.svg)
 
 ## Project Outline / Goals / Ideas
 
