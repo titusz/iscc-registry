@@ -47,7 +47,7 @@ def observe(from_block=None):
     if from_block is None:
         if "height_eth" not in meta_index:
             meta_index["height_eth"] = 0
-        from_block = meta_index["height_eth"] + 1
+        from_block = meta_index["height_eth"]
     log.info(f"start observing from block {from_block}")
     co = get_live_contract()
     event_filter = co.events.Registration.createFilter(fromBlock=from_block)

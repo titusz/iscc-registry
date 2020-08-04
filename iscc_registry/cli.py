@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import io
 import json
-from os.path import basename
+from os.path import abspath, basename, dirname, join
 from loguru import logger as log
 import click
 import cbor2
@@ -10,6 +10,7 @@ import iscc_registry
 from iscc_registry.conn import db_client, w3_client, chain_name, ipfs_client
 from iscc_registry.deploy import deploy as deploy_contract
 from iscc_registry.publish import publish
+from iscc_registry.observe import observe as iscc_reg_server
 
 
 @click.group()
@@ -29,7 +30,20 @@ def deploy():
     if click.confirm(f"Deploy registry contract to {chain_name(w3)}"):
         addr = deploy_contract()
         click.echo(f"ISCC Registry contract deployed to {addr}")
+    code_path = abspath(dirname(dirname(iscc_registry.__file__)))
+    env_path = join(code_path, ".env")
+    if click.confirm(f"Save contract address to {env_path}?"):
+        with open(env_path, "wt") as outf:
+            outf.write(f"CONTRACT_ADDRESS={addr}")
+            click.echo("Contract address configuration saved.")
+    else:
         click.echo(f"Remember to set CONTRACT_ADDRESS env variable to {addr}")
+
+
+@cli.command()
+def observe():
+    """Watch Registry contract and index ISCC-IDs"""
+    iscc_reg_server()
 
 
 @cli.command()

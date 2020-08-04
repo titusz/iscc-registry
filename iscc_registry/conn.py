@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import sys
+
+import click
 from loguru import logger as log
 import ipfshttpclient
 from web3 import Web3
@@ -31,6 +34,10 @@ def w3_client():
             )
         else:
             log.error("Connection failed")
+            click.echo(f"Connection failed to {iscc_registry.settings.web3_address}.")
+            click.echo("Make sure your ethereum node is running.")
+            click.echo("Set custom connection address via env var WEB3_ADDRESS.")
+            sys.exit()
     return W3_CLIENT
 
 
@@ -38,7 +45,15 @@ def ipfs_client():
     """Return cached ipfs connection."""
     global IPFS_CLIENT
     if IPFS_CLIENT is None:
-        IPFS_CLIENT = ipfshttpclient.connect(iscc_registry.settings.ipfs_address)
+        ipfs_addr = iscc_registry.settings.ipfs_address
+        try:
+            IPFS_CLIENT = ipfshttpclient.connect(ipfs_addr)
+        except Exception:
+            log.error(f"IPFS connection to {ipfs_addr}")
+            click.echo(f"Connection failed to {ipfs_addr}.")
+            click.echo("Make sure IPFS is running.")
+            click.echo("Set custom connection address via env var IPFS_ADDRESS.")
+            sys.exit()
     return IPFS_CLIENT
 
 
@@ -47,6 +62,7 @@ def db_client():
     global DB_CIENT
     if DB_CIENT is None:
         DB_CIENT = Index(iscc_registry.settings.db_dir)
+        log.debug(f"Initialized ISCC state DB in {iscc_registry.settings.db_dir}")
     return DB_CIENT
 
 
