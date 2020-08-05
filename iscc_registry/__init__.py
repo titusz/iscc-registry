@@ -1,8 +1,11 @@
+from os.path import join
+
 from pydantic import BaseSettings
 import appdirs
 
 APP_NAME = "iscc-registry"
 APP_DIR = appdirs.user_data_dir(appname=APP_NAME)
+ENV_PATH = join(APP_DIR, ".env")
 __version__ = "0.1.0"
 
 
@@ -17,4 +20,4 @@ class Settings(BaseSettings):
     db_dir: str = APP_DIR
 
 
-settings = Settings(_env_file='.env')
+settings = Settings(_env_file=ENV_PATH)
