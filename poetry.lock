@@ -864,7 +864,7 @@ description = "Vyper: the Pythonic Programming Language for the EVM"
 name = "vyper"
 optional = false
 python-versions = ">=3.6"
-version = "0.2.3"
+version = "0.2.4"
 
 [package.dependencies]
 asttokens = "2.0.3"
@@ -1412,8 +1412,8 @@ varint = [
     {file = "varint-1.0.2.tar.gz", hash = "sha256:a6ecc02377ac5ee9d65a6a8ad45c9ff1dac8ccee19400a5950fb51d594214ca5"},
 ]
 vyper = [
-    {file = "vyper-0.2.3-py3-none-any.whl", hash = "sha256:545433a2641b7c8bac889720f3d79993b7f1081806776c3b7bf288ac7459c749"},
-    {file = "vyper-0.2.3.tar.gz", hash = "sha256:65ffb5cd938e930d6960e01818649688f97fd75a3346bff22e06e22c9afdbc92"},
+    {file = "vyper-0.2.4-py3-none-any.whl", hash = "sha256:48b6747fb181718cf0e2f63ecc75984d50581de4240843badd6a9547b505d8f8"},
+    {file = "vyper-0.2.4.tar.gz", hash = "sha256:6954ce80260b927b029bc31ae20dbd6b91909900eeb5155be65ae14c88246835"},
 ]
 wcwidth = [
     {file = "wcwidth-0.2.5-py2.py3-none-any.whl", hash = "sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784"},
