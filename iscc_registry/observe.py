@@ -15,10 +15,10 @@ from iscc_registry.tools import build_iscc_id
 class RegEntry:
     iscc: str
     actor: str
-    cid: str
-    tx_hash: str
-    block_hash: str
-    block_num: int
+    cid: str = ""
+    tx_hash: str = ""
+    block_hash: str = ""
+    block_num: int = 0
 
 
 def parse_event(evt):
@@ -33,7 +33,7 @@ def parse_event(evt):
 
     return RegEntry(
         iscc="-".join(iscc_codes),
-        actor=evt.address,
+        actor=evt.args.actor,
         cid=cid,
         tx_hash=evt.transactionHash.hex(),
         block_hash=evt.blockHash.hex(),
@@ -41,9 +41,14 @@ def parse_event(evt):
     )
 
 
-def observe(from_block=None):
+def observe(from_block=None, rebuild=False):
     """Watch ISCC-Registry contract events and index new registartion events."""
     meta_index = db_client()
+
+    if rebuild:
+        meta_index.clear()
+        from_block = 0
+
     if from_block is None:
         if "height_eth" not in meta_index:
             meta_index["height_eth"] = 0
@@ -84,6 +89,22 @@ def index(reg_entry: RegEntry) -> str:
         iscc_id = build_iscc_id(iscc_registry.LEDGER_ID_ETH, reg_entry.iscc, counter)
     meta_index[iscc_id] = asdict(reg_entry)
     log.info(f"indexed {iscc_id} -> {reg_entry}")
+    return iscc_id
+
+
+def find_next(reg_entry: RegEntry) -> str:
+    meta_index = db_client()
+    counter = 0
+    iscc_id = build_iscc_id(iscc_registry.LEDGER_ID_ETH, reg_entry.iscc, counter)
+    while iscc_id in meta_index:
+        if meta_index[iscc_id]["actor"] == reg_entry.actor:
+            log.info(
+                f"Previously registered by same actor. This will be an update: {iscc_id} -> {reg_entry}"
+            )
+            return iscc_id
+        counter += 1
+        log.info(f"counting up {iscc_id}")
+        iscc_id = build_iscc_id(iscc_registry.LEDGER_ID_ETH, reg_entry.iscc, counter)
     return iscc_id
 
 
