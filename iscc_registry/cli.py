@@ -11,6 +11,7 @@ from iscc_registry.conn import db_client, w3_client, chain_name, ipfs_client
 from iscc_registry.deploy import deploy as deploy_contract
 from iscc_registry.publish import publish
 from iscc_registry.observe import RegEntry, find_next, observe as iscc_reg_server
+from iscc_registry.verify import create_proof, verify_proof
 
 
 @click.group()
@@ -81,6 +82,30 @@ def register(file, account):
         click.echo(f"Actor wallet address: {addr}")
         click.echo(f"Registration TX-ID:   {txid}")
         click.echo(f"Probable ISCC-ID:     {iscc_id}")
+
+
+@cli.command()
+@click.argument("domain", type=click.STRING, required=False)
+@click.option(
+    "-a",
+    "--account",
+    type=click.INT,
+    default=0,
+    show_default=True,
+    help="Wallet index of account to use for registration.",
+)
+def prove(domain, account):
+    """Create domain based self-verification proof"""
+    if not domain:
+        domain = click.prompt("Domain to prove (example: https://example.com/)")
+    w3 = w3_client()
+    address = w3.eth.accounts[account]
+    proof = create_proof(domain, address)
+    url = domain + "/iscc-proof.json"
+    click.echo(
+        f"Publish the following data at {url} to validate your account {address}:"
+    )
+    click.echo(proof)
 
 
 @cli.command()
