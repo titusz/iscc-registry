@@ -51,12 +51,3 @@ def verify_proof(domain: str, address: str):
         return False
     log.info(f"Verifying domain proof {domain} for {address}")
     return valid(domain, address, proof)
-
-
-if __name__ == "__main__":
-    proof = create_proof(
-        "https://craft.de", "0x2addc87fdB0cD2818820b88ee6b1E3B24B4f09c0"
-    )
-    print(
-        verify_proof("https://craft.de", "0x2addc87fdB0cD2818820b88ee6b1E3B24B4f09c0")
-    )
