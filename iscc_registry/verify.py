@@ -26,6 +26,8 @@ def valid(domain: str, address: str, proof: dict) -> bool:
         return False
     if domain != proof["domain"]:
         return False
+    if not proof.get('signature'):
+        return False
 
     msg = encode_defunct(text=proof["domain"])
     try:
