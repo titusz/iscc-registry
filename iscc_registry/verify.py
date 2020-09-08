@@ -43,10 +43,10 @@ def verify_proof(domain: str, address: str):
     try:
         log.info(f"Fetching self verification proof from {url}")
         result = requests.get(url)
+        proof = result.json()
     except Exception as e:
-        log.error(f"Failed to fetch proof: {e}")
+        log.warning(f"Failed to fetch proof: {repr(e)}")
         return False
-    proof = result.json()
     log.info(f"Verifying domain proof {domain} for {address}")
     return valid(domain, address, proof)
 
