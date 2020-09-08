@@ -2,6 +2,8 @@
 
 *HackFS- Decentralized Content Identifier Registry*
 
+[![Alt text](https://img.youtube.com/vi/QZEXVAPTVuA/0.jpg)](https://www.youtube.com/watch?v=QZEXVAPTVuA)
+
 ## Centralized Identifiers
 
 Traditional commercial content identifiers like ISBN, DOI, ISRC, ISSN and many others usually identify "content" in an abstract sense and not files or data. They are mostly registry-based systems where an identifier is bound to an actor who controls what "content" is identified by a given id.
@@ -27,17 +29,18 @@ The ISCC is currently discussed at ISO for standardization (ISO/TC 46/SC 9/WG 18
 
 - [Talk about ISCC @ Blockchain for Science](https://www.youtube.com/watch?v=4OCvPrDhGuQ)
 
+
 ![ISCC Content-ID-Image](./img/iscc-content-id-image.svg)
 
 ## Project Idea: A Decentralized ISCC Registry
 
 ### Why is a registry usefull?
 
-- ISCC codes do not necessarily require a registry, so why do we want to build one?:
+- ISCC codes do not necessarily require a registry, so why would we want to build one?:
 - Identifiers can be shorter when using a registry (citable).
-- Identifiers can be owned by actors (metadata authority).
+- Identifiers can be owned by actors (authenticated messages).
 - Identifiers can have guaranteed uniqueness.
-- Identifiers can be discovered by browing/searching a registry
+- Identifiers can be discovered by browsing/searching a registry
 - Identifiers can be resolved to metadata or data.
 
 ### How can we create a Decentralized Registry?
@@ -62,6 +65,7 @@ Public, Authenticated, Ordered, Immutable. Anybody who follows the cross-chain i
 - [x] tool that registers ISCC codes on Ethereum and publishes metadata to IPFS
 - [x] A meta-registry indexer that creates a ISCC Short-ID index by listening to contract events and offering resolver services.
 - [x] A tool that resolves ISCC Short-IDs to ISCC Codes and metadata/data (maybe as DID method driver https://uniresolver.io/)
+- [x] Domain based self-verification
 
 ## POC Status
 
@@ -77,6 +81,7 @@ Options:
 Commands:
   deploy    Deploy ISCC Registry contract to chain.
   observe   Watch Registry contract and index ISCC-IDs
+  prove     Create domain based self-verification proof
   register  Register a media asset.
   resolve   Resolve ISCC-ID via meta-index
 ```
@@ -90,4 +95,4 @@ Commands:
 - Run meta-index observer with `ireg -d observe`
 - Register an asset with `ireg -d register README.md`
 - Resolve an ISCC-ID with `ireg resolve 27PH9o5ZNm1VC`
-
+- Self-verify your domain with `ireg prove`

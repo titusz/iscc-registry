@@ -31,10 +31,9 @@ def deploy():
     if click.confirm(f"Deploy registry contract to {chain_name(w3)}"):
         addr = deploy_contract()
         click.echo(f"ISCC Registry contract deployed to {addr}")
-    code_path = abspath(dirname(dirname(iscc_registry.__file__)))
     if click.confirm(f"Save contract address to {iscc_registry.ENV_PATH}?"):
         with open(iscc_registry.ENV_PATH, "wt") as outf:
-            outf.write(f"CONTRACT_ADDRESS={addr}")
+            outf.write(f"CONTRACT_ADDRESS={addr}\n")
             click.echo("Contract address configuration saved.")
     else:
         click.echo(f"Remember to set CONTRACT_ADDRESS env variable to {addr}")
@@ -72,6 +71,12 @@ def register(file, account):
     log.info(f"ISCC-ID will probably be: {iscc_id}")
 
     iscc_result["filename"] = fname
+
+    authority = iscc_registry.settings.verification_domain
+    if authority:
+        log.debug(f"Set domain to {authority} in metadata.")
+        iscc_result["domain"] = authority
+
     meta_blob = cbor2.dumps(iscc_result)
     ipfs_result = ic.add(io.BytesIO(meta_blob))
     ipfs_cid = ipfs_result["Hash"]
@@ -101,6 +106,14 @@ def prove(domain, account):
     w3 = w3_client()
     address = w3.eth.accounts[account]
     proof = create_proof(domain, address)
+
+    if click.confirm(f"Save {domain} to {iscc_registry.ENV_PATH}?"):
+        with open(iscc_registry.ENV_PATH, "a+") as outf:
+            outf.write(f"VERIFICATION_DOMAIN={domain}\n")
+            click.echo("Self-verification domain saved.")
+    else:
+        click.echo(f"Remember to set VERIFICATION_DOMAIN env variable to {domain}")
+
     url = domain + "/iscc-proof.json"
     click.echo(
         f"Publish the following data at {url} to validate your account {address}:"
@@ -120,6 +133,9 @@ def resolve(iscc_id):
         ic = ipfs_client()
         raw = ic.cat(result["cid"])
         obj = cbor2.loads(raw)
+        # Self-Verification check
+        if "domain" in obj:
+            obj["verified"] = verify_proof(obj["domain"], result["actor"])
         click.echo("IPFS Data:")
         click.echo(json.dumps(obj, indent=2))
     else:

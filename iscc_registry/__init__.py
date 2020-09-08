@@ -18,6 +18,7 @@ class Settings(BaseSettings):
     web3_address: str = "http://127.0.0.1:7545"
     contract_address: str = ""
     db_dir: str = APP_DIR
+    verification_domain: str = ""
 
 
 settings = Settings(_env_file=ENV_PATH)
